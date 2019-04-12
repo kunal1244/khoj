@@ -23,7 +23,7 @@ def preprocess_features(X):
 
     return outX
 
-def train_predict(name, X_train, y_train, X_test, y_test, test_example, set_size_1, set_size_2, set_size_3, clf_default, clf_tuned = None):
+def train_predict(name, X_train, y_train, X_test, y_test, test_example, set_size_3, clf_default, clf_tuned = None):
     '''Train supervised models, and predict using different training set sizes.
     Requires SKLEARN.'''
     #print table headers
@@ -32,7 +32,7 @@ def train_predict(name, X_train, y_train, X_test, y_test, test_example, set_size
     #print ("\n")
     #print (row_format.format("model", *table_headers))
     
-    sizes = (set_size_1, set_size_2, set_size_3)
+    sizes = [set_size_3]
     
     #calculate and print the default classifier metrics
     for size in sizes:
@@ -56,8 +56,6 @@ def train_predict(name, X_train, y_train, X_test, y_test, test_example, set_size
         y_pred = clf_default.predict(X_test)
         end_tst_ptime = time.time()
         tst_ptime = end_tst_ptime - start_tst_ptime
-    	
-    	print y_pred
         #calculate f1 score for the test set
         tst_f1 = f1_score(y_test.values, y_pred, pos_label=1)
 

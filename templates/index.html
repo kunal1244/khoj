@@ -7,8 +7,7 @@
 </head>
 
 <body>
-    <h1>Calculation</h1>
-    <h1>Test Page</h1>
+    
     <form action = "http://localhost:5000/learning" method = "POST">
       <p><input type="text" name="userinput1" placeholder="Text to be analyzed" /></p>
       <p><input type="text" name="userinput2" placeholder="Text to be analyzed" /></p>
@@ -19,6 +18,143 @@
       <p id="results">Results will go here</p>
       <p><input type="submit" /></input></p>
     </form>
+
+    <br><br><br><br><br>
+
+    <form action = "http://localhost:5000/acads" method = "POST">
+      <p><select name="sex">
+          <option value="M" selected>Male</option>
+          <option value="F">Female</option>
+        </select>
+      </p> 
+      <p><select name="age">
+          <option value="18" selected>18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+          <option value="24">24</option>
+          <option value="25">25</option>
+        </select>
+      </p> 
+      <p><select name="p_status">
+          <option value="T" selected>Living Together</option>
+          <option value="A">Living Apart</option>
+        </select>
+      </p> 
+      <p><select name="mjob">
+          <option value="at_home" selected>Unemployed</option>
+          <option value="teacher">Teaching</option>
+          <option value="health">Health Industry</option>
+          <option value="services">Services</option>
+          <option value="other">Others</option>
+        </select>
+      </p> 
+      <p><select name="fjob">
+          <option value="at_home" selected>Unemployed</option>
+          <option value="teacher">Teaching</option>
+          <option value="health">Health Industry</option>
+          <option value="services">Services</option>
+          <option value="other">Others</option>
+        </select>
+      </p>
+      <p><select name="reason">
+          <option value="reputation" selected>Reputation</option>
+          <option value="course">Course</option>
+          <option value="home">Home</option>
+          <option value="other">Others</option>
+        </select>
+      </p>
+      <p><select name="stime">
+          <option value="1" selected>1 hour</option>
+          <option value="2">2 hours</option>
+          <option value="3">3 hours</option>
+          <option value="4">4 hours</option>
+        </select>
+      </p>
+       <p><select name="fail">
+          <option value="0" selected>0 times</option>
+          <option value="1">1 time</option>
+          <option value="2">2 times</option>
+          <option value="3">3 times</option>
+        </select>
+      </p>
+      <p><select name="famsup">
+          <option value="0" selected>Not supported</option>
+          <option value="1">Supported</option>
+        </select>
+      </p>
+      <p><select name="act">
+          <option value="0" selected>No activities</option>
+          <option value="1">Involved in activities</option>
+        </select>
+      </p>
+      <p><select name="net">
+          <option value="0" selected>No net access</option>
+          <option value="1">Has internet access</option>
+        </select>
+      </p>
+      <p><select name="rel">
+          <option value="0" selected>Single</option>
+          <option value="1">In a relationship</option>
+        </select>
+      </p>
+      <p><select name="famrel">
+          <option value="1" selected>Below Average</option>
+          <option value="2">Average</option>
+          <option value="3">Good</option>
+          <option value="4">Very Good</option>
+          <option value="5">Excellent</option>
+        </select>
+      </p>
+      <p><select name="free">
+          <option value="1" selected>Too busy</option>
+          <option value="2">Busy</option>
+          <option value="3">Manageable</option>
+          <option value="4">Generally Free</option>
+          <option value="5">Free all the time</option>
+        </select>
+      </p>
+      <p><select name="goout">
+          <option value="1" selected>Very Low</option>
+          <option value="2">Low</option>
+          <option value="3">Average</option>
+          <option value="4">High</option>
+          <option value="5">Very High</option>
+        </select>
+      </p>
+      <p><select name="dalc">
+          <option value="1" selected>Very Low</option>
+          <option value="2">Low</option>
+          <option value="3">Average</option>
+          <option value="4">High</option>
+          <option value="5">Very High</option>
+        </select>
+      </p>
+      <p><select name="walc">
+          <option value="1" selected>Very Low</option>
+          <option value="2">Low</option>
+          <option value="3">Average</option>
+          <option value="4">High</option>
+          <option value="5">Very High</option>
+        </select>
+      </p>
+      <p><select name="health">
+          <option value="1" selected>Always Sick</option>
+          <option value="2">Intermittently Sick</option>
+          <option value="3">Average Health</option>
+          <option value="4">Good health</option>
+          <option value="5">Excellent helath</option>
+        </select>
+      </p>
+      <p><input type="text" name="abscences" placeholder="Text to be analyzed" /></p>
+      <p><input type="text" name="cgpa" placeholder="Text to be analyzed" /></p>
+
+      <p><input type="submit" /></input></p>
+    </form>
+
+
 </body>
 
 
