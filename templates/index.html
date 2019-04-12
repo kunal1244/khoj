@@ -8,20 +8,13 @@
 
 <body>
     
-    <form action = "http://localhost:5000/learning" method = "POST">
+    <form action = "http://localhost:5000/learning" method = "POST" enctype="multipart/form-data">
       <p><input type="text" name="userinput1" placeholder="Text to be analyzed" /></p>
       <p><input type="text" name="userinput2" placeholder="Text to be analyzed" /></p>
       <p><input type="text" name="userinput3" placeholder="Text to be analyzed" /></p>
       <p><input type="text" name="userinput4" placeholder="Text to be analyzed" /></p>
       <p><input type="text" name="userinput5" placeholder="Text to be analyzed" /></p>
 
-      <p id="results">Results will go here</p>
-      <p><input type="submit" /></input></p>
-    </form>
-
-    <br><br><br><br><br>
-
-    <form action = "http://localhost:5000/acads" method = "POST">
       <p><select name="sex">
           <option value="M" selected>Male</option>
           <option value="F">Female</option>
@@ -151,12 +144,6 @@
       <p><input type="text" name="abscences" placeholder="Text to be analyzed" /></p>
       <p><input type="text" name="cgpa" placeholder="Text to be analyzed" /></p>
 
-      <p><input type="submit" /></input></p>
-    </form>
-
-    <br><br><br><br><br>
-
-    <form action = "http://localhost:5000/handwriting" method = "POST"  enctype="multipart/form-data">
       <p><input type="file" name="file1"/></p>
       <p><input type="file" name="file2"/></p>
       <p><input type="file" name="file3"/></p>
