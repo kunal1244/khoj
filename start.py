@@ -141,6 +141,62 @@ class TweetClassifier(object):
             pPositive += log(self.prob_positive_tweet)
         return pDepressive >= pPositive
 
+def fuzzy(a,b,c):
+    a1=''
+    a2=''
+    a3=''
+    if(a>0 and a<0.34):
+        a1='low'
+    elif(a>0.34 and a<0.68):
+        a1='medium'
+    else:
+        a1='high'
+    if(b>0 and b<0.34):
+        b1='low'
+    elif(b>0.34 and b<0.68):
+        b1='medium'
+    else:
+        b1='high'
+    if(c==0):
+        c1='low'
+    else:
+        c1='high'
+    if(a1=='low' and b1=='low' and c1=='low'):
+        return ('very low')
+    if(a1=='low' and b1=='low' and c1=='high'):
+        return ('low')
+    if(a1=='low' and b1=='medium' and c1=='low'):
+        return('low')
+    if(a1=='low' and b1=='high' and c1=='low'):
+        return('low')
+    if(a1=='low' and b1=='medium' and c1=='high'):
+        return('low')
+    if(a1=='low' and b1=='high' and c1=='high'):
+        return('medium')
+    if(a1=='medium' and b1=='low' and c1=='low'):
+        return('low')
+    if(a1=='medium' and b1=='low' and c1=='high'):
+        return('medium')
+    if(a1=='medium' and b1=='medium' and c1=='high'):
+        return('medium')
+    if(a1=='medium' and b1=='medium' and c1=='low'):
+        return('medium')
+    if(a1=='medium' and b1=='high' and c1=='low'):
+        return('medium')
+    if(a1=='medium' and b1=='high' and c1=='high'):
+        return('high')
+    if(a1=='high' and b1=='low' and c1=='low'):
+        return('medium')
+    if(a1=='high' and b1=='low' and c1=='high'):
+        return('high')
+    if(a1=='high' and b1=='medium' and c1=='high'):
+        return('high')
+    if(a1=='high' and b1=='medium' and c1=='low'):
+        return('high')
+    if(a1=='high' and b1=='high' and c1=='low'):
+        return('high')
+    if(a1=='high' and b1=='high' and c1=='high'):
+        return('very high')
 
 
 def process_message(message, lower_case = True, stem = True, stop_words = True, gram = 2):
@@ -330,10 +386,17 @@ if os.path.isfile("label_list"):
     clf8 = SVC(kernel='rbf')
     clf8.fit(X_train, y_train)
     
-
-
-
-
+def scoring(arr):
+    sum=0
+    max1=arr[0]
+    max2=arr[0]
+    for i in range(8):
+        arr[i]=float(arr[i])
+    for i in range(4):
+        arr[i]=1-arr[i]
+    for i in range(8):
+        sum+=arr[i]
+    return sum/8
 
 
 
@@ -341,115 +404,12 @@ if os.path.isfile("label_list"):
 def index():
     return render_template('index.html')
 
+@app.route('/result')
+def res():
+    return render_template('result.html')
+   
 @app.route('/learning', methods=['POST','GET'])
 def learning():
-	if request.method=='POST':
-		data1=request.form['userinput1']
-		data2=request.form['userinput2']
-		data3=request.form['userinput3']
-		data4=request.form['userinput4']
-		data5=request.form['userinput5']
-		response1=int(sc_tf_idf.classify(process_message(data1)))
-		response2=int(sc_tf_idf.classify(process_message(data2)))
-		response3=int(sc_tf_idf.classify(process_message(data3)))
-		response4=int(sc_tf_idf.classify(process_message(data4)))
-		response5=int(sc_tf_idf.classify(process_message(data5)))
-		score=0.2*(response1+response2+response3+response4+response5)
-		return render_template('result.html',result=score)
-
-@app.route('/acads', methods=['POST','GET'])
-def acads():
-	if request.method=='POST':
-		sex=request.form['sex']
-		age=request.form['age']
-		p_status=request.form['p_status']
-		mjob=request.form['mjob']
-		fjob=request.form['fjob']
-		reason=request.form['reason']
-		stime=request.form['stime']
-		fail=request.form['fail']
-		famsup=request.form['famsup']
-		act=request.form['act']
-		net=request.form['net']
-		rel=request.form['rel']
-		famrel=request.form['famrel']
-		free=request.form['free']
-		goout=request.form['goout']
-		dalc=request.form['dalc']
-		walc=request.form['walc']
-		health=request.form['health']
-		abscences=request.form['abscences']
-		cgpa=request.form['cgpa']
-		data=[sex,age,p_status,mjob,fjob,reason,stime,fail,famsup,act,net,rel,famrel,free,goout,dalc,walc,health,abscences]
-		with open('testing.csv','a') as fd:
-			for i in data:
-				fd.write(i)
-				fd.write(',')
-			fd.write(cgpa)
-			fd.write('\n')
-		fd.close()
-		
-		student_data = pd.read_csv("students.csv", encoding='utf-8')
-		test = pd.read_csv("testing.csv", encoding='utf-8')
-		n_students = student_data.shape[0]
-		n_features = student_data.shape[1] - 1
-		n_passed = student_data["risk"].value_counts()[1]
-		n_failed = student_data["risk"].value_counts()[0]
-		grad_rate = float(n_passed)/n_students*100
-
-
-		feature_cols = list(student_data.columns[:-1])  # all columns but last are features
-		target_col = student_data.columns[-1]  # last column is the target/label
-
-		X_all = student_data[feature_cols]  # feature values for all students
-		y_all = student_data[target_col]  # corresponding targets/labels
-
-		test_example = test[feature_cols]
-
-		X_all = dews.preprocess_features(X_all)
-		test_example = dews.preprocess_features(test_example)
-		test_example = test_example.iloc[-1:]
-
-		num_all = student_data.shape[0]  # same as len(student_data)
-		num_train = 316  # about 80% of the data
-		num_test = 79
-
-		X_train, X_test, y_train, y_test = train_test_split(X_all,y_all,train_size=num_train,test_size=num_test,stratify=y_all)
-
-
-		f1_scorer = make_scorer(f1_score, pos_label=1)
-
-		parameters = {'max_depth': range(1,15)}
-		dt = DecisionTreeClassifier()
-		grid_search = GridSearchCV(dt,parameters,scoring=f1_scorer)
-		grid_search.fit(X_train,y_train)
-
-		dt_tuned = DecisionTreeClassifier(max_depth=3)
-		dt_tuned.fit(X_train,y_train)
-
-		# Subset the Dataset by removing features whose 'importance' is zero, 
-		# according to a tuned Decision tree in 1.1 
-		sub = np.nonzero(dt_tuned.feature_importances_)[0].tolist()
-		subset_cols = list(X_train.columns[sub])
-		X_train_subset = X_train[subset_cols]
-		X_test_subset = X_test[subset_cols]
-		test_example_subset = test_example[subset_cols]
-
-		clf_default = KNeighborsClassifier()
-
-		# Determine the number of nearest neighbors that optimizes accuracy 
-		parameters = {'n_neighbors': range(1,30)}
-		knn = KNeighborsClassifier()
-		knn_tuned = GridSearchCV(knn,parameters,scoring=f1_scorer)
-		knn_tuned.fit(X_train_subset,y_train)
-		clf_tuned = KNeighborsClassifier(n_neighbors=knn_tuned.best_params_['n_neighbors'])
-		y = dews.train_predict("Subset_KNN", X_train_subset, y_train, X_test_subset, y_test, test_example_subset, 300, clf_default, clf_tuned)
-
-
-		return render_template('result1.html',result=y)
-
-@app.route('/handwriting', methods=['POST','GET'])
-def handwriting():
     score1=0
     score2=0
     score3=0
@@ -458,7 +418,106 @@ def handwriting():
     score6=0
     score7=0
     score8=0
+
     if request.method=='POST':
+        data1=request.form['userinput1']
+        data2=request.form['userinput2']
+        data3=request.form['userinput3']
+        data4=request.form['userinput4']
+        data5=request.form['userinput5']
+        response1=int(sc_tf_idf.classify(process_message(data1)))
+        response2=int(sc_tf_idf.classify(process_message(data2)))
+        response3=int(sc_tf_idf.classify(process_message(data3)))
+        response4=int(sc_tf_idf.classify(process_message(data4)))
+        response5=int(sc_tf_idf.classify(process_message(data5)))
+        score=0.2*(response1+response2+response3+response4+response5)
+    
+
+        sex=request.form['sex']
+        age=request.form['age']
+        p_status=request.form['p_status']
+        mjob=request.form['mjob']
+        fjob=request.form['fjob']
+        reason=request.form['reason']
+        stime=request.form['stime']
+        fail=request.form['fail']
+        famsup=request.form['famsup']
+        act=request.form['act']
+        net=request.form['net']
+        rel=request.form['rel']
+        famrel=request.form['famrel']
+        free=request.form['free']
+        goout=request.form['goout']
+        dalc=request.form['dalc']
+        walc=request.form['walc']
+        health=request.form['health']
+        abscences=request.form['abscences']
+        cgpa=request.form['cgpa']
+        data=[sex,age,p_status,mjob,fjob,reason,stime,fail,famsup,act,net,rel,famrel,free,goout,dalc,walc,health,abscences]
+        with open('testing.csv','a') as fd:
+            for i in data:
+                fd.write(i)
+                fd.write(',')
+            fd.write(cgpa)
+            fd.write('\n')
+        fd.close()
+
+        student_data = pd.read_csv("students.csv", encoding='utf-8')
+        test = pd.read_csv("testing.csv", encoding='utf-8')
+        n_students = student_data.shape[0]
+        n_features = student_data.shape[1] - 1
+        n_passed = student_data["risk"].value_counts()[1]
+        n_failed = student_data["risk"].value_counts()[0]
+        grad_rate = float(n_passed)/n_students*100
+
+
+        feature_cols = list(student_data.columns[:-1])  # all columns but last are features
+        target_col = student_data.columns[-1]  # last column is the target/label
+
+        X_all = student_data[feature_cols]  # feature values for all students
+        y_all = student_data[target_col]  # corresponding targets/labels
+
+        test_example = test[feature_cols]
+
+        X_all = dews.preprocess_features(X_all)
+        test_example = dews.preprocess_features(test_example)
+        test_example = test_example.iloc[-1:]
+
+        num_all = student_data.shape[0]  # same as len(student_data)
+        num_train = 316  # about 80% of the data
+        num_test = 79
+
+        X_train, X_test, y_train, y_test = train_test_split(X_all,y_all,train_size=num_train,test_size=num_test,stratify=y_all)
+
+
+        f1_scorer = make_scorer(f1_score, pos_label=1)
+
+        parameters = {'max_depth': range(1,15)}
+        dt = DecisionTreeClassifier()
+        grid_search = GridSearchCV(dt,parameters,scoring=f1_scorer)
+        grid_search.fit(X_train,y_train)
+
+        dt_tuned = DecisionTreeClassifier(max_depth=3)
+        dt_tuned.fit(X_train,y_train)
+
+        # Subset the Dataset by removing features whose 'importance' is zero, 
+        # according to a tuned Decision tree in 1.1 
+        sub = np.nonzero(dt_tuned.feature_importances_)[0].tolist()
+        subset_cols = list(X_train.columns[sub])
+        X_train_subset = X_train[subset_cols]
+        X_test_subset = X_test[subset_cols]
+        test_example_subset = test_example[subset_cols]
+
+        clf_default = KNeighborsClassifier()
+
+        # Determine the number of nearest neighbors that optimizes accuracy 
+        parameters = {'n_neighbors': range(1,30)}
+        knn = KNeighborsClassifier()
+        knn_tuned = GridSearchCV(knn,parameters,scoring=f1_scorer)
+        knn_tuned.fit(X_train_subset,y_train)
+        clf_tuned = KNeighborsClassifier(n_neighbors=knn_tuned.best_params_['n_neighbors'])
+        y = dews.train_predict("Subset_KNN", X_train_subset, y_train, X_test_subset, y_test, test_example_subset, 300, clf_default, clf_tuned)
+
         file1 = request.files['file1']
         file2 = request.files['file2']
         file3 = request.files['file3']
@@ -509,8 +568,22 @@ def handwriting():
                 score6+=0.2*clf6.predict([[letter_size, line_spacing]])[0]
                 score7+=0.2*clf7.predict([[letter_size, word_spacing]])[0]
                 score8+=0.2*clf8.predict([[line_spacing, word_spacing]])[0]
-            score=[str(round(score1,2)),str(round(score2,2)),str(round(score3,2)),str(round(score4,2)),str(round(score5,2)),str(round(score6,2)),str(round(score7,2)),str(round(score8,2))]
-            return render_template('result2.html',result=score)
+                score_hand=[str(round(score1,2)),str(round(score2,2)),str(round(score3,2)),str(round(score4,2)),str(round(score5,2)),str(round(score6,2)),str(round(score7,2)),str(round(score8,2))]
+        max1=0
+        max2=0
+        i1=0
+        i2=0
+        print(score_hand)
+        for i in range(8): 
+            if float(score_hand[i]) > max1: 
+                max1 = float(score_hand[i]) 
+                i1=i    
+            if float(score_hand[i]) > max2 and float(score_hand[i]) <= max1 and i!=i1:
+                max2 = float(score_hand[i])
+                i2=i
+        array=['emotional stability','mental energy or will power','modesty','personal harmony and flexibility','lack of discipline','poor concentration','non communicativeness','social isolation']
+        final_score=[fuzzy(scoring(score_hand),score,y),array[i1],max1,array[i2],max2]
+        return render_template('result.html', result=final_score)
 
 
 
