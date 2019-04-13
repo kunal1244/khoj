@@ -404,11 +404,10 @@ def scoring(arr):
 def index():
     return render_template('index.html')
 
-@app.route('/test')
-def index1():
-    return render_template('temp.html')
-
-
+@app.route('/result')
+def res():
+    return render_template('result.html')
+   
 @app.route('/learning', methods=['POST','GET'])
 def learning():
     score1=0
@@ -572,11 +571,14 @@ def learning():
                 score_hand=[str(round(score1,2)),str(round(score2,2)),str(round(score3,2)),str(round(score4,2)),str(round(score5,2)),str(round(score6,2)),str(round(score7,2)),str(round(score8,2))]
         max1=0
         max2=0
+        i1=0
+        i2=0
+        print(score_hand)
         for i in range(8): 
             if float(score_hand[i]) > max1: 
                 max1 = float(score_hand[i]) 
                 i1=i    
-            if float(score_hand[i]) > max2 and float(score_hand[i]) < max1:
+            if float(score_hand[i]) > max2 and float(score_hand[i]) <= max1 and i!=i1:
                 max2 = float(score_hand[i])
                 i2=i
         array=['emotional stability','mental energy or will power','modesty','personal harmony and flexibility','lack of discipline','poor concentration','non communicativeness','social isolation']

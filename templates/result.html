@@ -1,10 +1,80 @@
-<!doctype html>
-<html>
-   <body>
-      <table border = 1>
-            <tr>
-               <th> {{result}} </th>
-            </tr>
-      </table>
-   </body>
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>KHOJ</title>
+  
+  
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.css'>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+      * {
+        box-sizing: border-box;
+      }
+      
+      /* Create two equal columns that floats next to each other */
+      .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 57px; /* Should be removed. Only for demonstration */
+      }
+      
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      #special{
+        font-size: 15px;
+      }
+  </style>
+  
+</head>
+
+<body>
+
+  <header>
+  <div class="header-top clearfix">
+    <h1 class="l-left"><a href="#firstSection">KHOJ</a></h1>
+    <a class="l-right toggle-menu" href="#">
+      <i></i>
+      <i></i>
+      <i></i>
+    </a>
+  </div>
+
+  
+</header>
+
+<section class="vertical-scrolling" id="special">
+   <br><br><br>
+   <h4>THE STUDENT'S RISK RATE IS</h4>   
+      <p style="font-size:90px"><b>{{result[0]}}</b></p>
+      <br><br><br><br><br><br>
+      <h4>HIGHEST AT-RISK FEATURES</h4><br>
+      <h3>
+      <p>{{result[1]}}</p>
+      <p>{{result[3]}}</p>
+   </h3>
+</section>
+
+
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.min.js'></script>
+
+  
+
+    <script  src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+
+
+
+</body>
+
 </html>

@@ -1,160 +1,294 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" >
+
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="../static/script.js"></script>
-</script>
+  <meta charset="UTF-8">
+  <title>KHOJ</title>
+  
+  
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.css'>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+      * {
+        box-sizing: border-box;
+      }
+      
+      /* Create two equal columns that floats next to each other */
+      .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 57px; /* Should be removed. Only for demonstration */
+      }
+      
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      #special{
+        font-size: 15px;
+      }
+  </style>
+  
 </head>
 
 <body>
+
+  <header>
+  <div class="header-top clearfix">
+    <h1 class="l-left"><a href="#firstSection">KHOJ</a></h1>
+    <a class="l-right toggle-menu" href="#">
+      <i></i>
+      <i></i>
+      <i></i>
+    </a>
+  </div>
+
+  
+</header>
+<form action = "http://localhost:5000/learning" method = "POST" enctype="multipart/form-data">
+<div id="fullpage">
+  <section class="vertical-scrolling">
+    <p style="font-size:90px"><b>KHOJ</b></p><br><br>
+    <h3>A Web-App to calculate a student's self-harm risk</h3>
     
-    <form action = "http://localhost:5000/learning" method = "POST" enctype="multipart/form-data">
-      <p><input type="text" name="userinput1" placeholder="Text to be analyzed" /></p>
-      <p><input type="text" name="userinput2" placeholder="Text to be analyzed" /></p>
-      <p><input type="text" name="userinput3" placeholder="Text to be analyzed" /></p>
-      <p><input type="text" name="userinput4" placeholder="Text to be analyzed" /></p>
-      <p><input type="text" name="userinput5" placeholder="Text to be analyzed" /></p>
+  </section>
+  <section class="vertical-scrolling">
+      <p style="font-size:15px">Enter 1st sentence</p><p><input type="text" name="userinput1" style="text-align:center;height:3vw;width:20vw" placeholder="Text to be analyzed" /></p>
+      <br><br>
+      <p style="font-size:15px">Enter 2nd sentence</p><p><input type="text" name="userinput2" style="text-align:center;height:3vw;width:20vw" placeholder="Text to be analyzed" /></p>
+      <br><br>
+      <p style="font-size:15px">Enter 3rd sentence</p><p><input type="text" name="userinput3" style="text-align:center;height:3vw;width:20vw" placeholder="Text to be analyzed" /></p>
+      <br><br>
+      <p style="font-size:15px">Enter 4th sentence</p><p><input type="text" name="userinput4" style="text-align:center;height:3vw;width:20vw" placeholder="Text to be analyzed" /></p>
+      <br><br>
+      <p style="font-size:15px">Enter 5th sentence</p><p><input type="text" name="userinput5" style="text-align:center;height:3vw;width:20vw" placeholder="Text to be analyzed" /></p>
 
-      <p><select name="sex">
-          <option value="M" selected>Male</option>
-          <option value="F">Female</option>
-        </select>
-      </p> 
-      <p><select name="age">
-          <option value="18" selected>18</option>
-          <option value="19">19</option>
-          <option value="20">20</option>
-          <option value="21">21</option>
-          <option value="22">22</option>
-          <option value="23">23</option>
-          <option value="24">24</option>
-          <option value="25">25</option>
-        </select>
-      </p> 
-      <p><select name="p_status">
-          <option value="T" selected>Living Together</option>
-          <option value="A">Living Apart</option>
-        </select>
-      </p> 
-      <p><select name="mjob">
-          <option value="at_home" selected>Unemployed</option>
-          <option value="teacher">Teaching</option>
-          <option value="health">Health Industry</option>
-          <option value="services">Services</option>
-          <option value="other">Others</option>
-        </select>
-      </p> 
-      <p><select name="fjob">
-          <option value="at_home" selected>Unemployed</option>
-          <option value="teacher">Teaching</option>
-          <option value="health">Health Industry</option>
-          <option value="services">Services</option>
-          <option value="other">Others</option>
-        </select>
-      </p>
-      <p><select name="reason">
-          <option value="reputation" selected>Reputation</option>
-          <option value="course">Course</option>
-          <option value="home">Home</option>
-          <option value="other">Others</option>
-        </select>
-      </p>
-      <p><select name="stime">
-          <option value="1" selected>1 hour</option>
-          <option value="2">2 hours</option>
-          <option value="3">3 hours</option>
-          <option value="4">4 hours</option>
-        </select>
-      </p>
-       <p><select name="fail">
-          <option value="0" selected>0 times</option>
-          <option value="1">1 time</option>
-          <option value="2">2 times</option>
-          <option value="3">3 times</option>
-        </select>
-      </p>
-      <p><select name="famsup">
-          <option value="0" selected>Not supported</option>
-          <option value="1">Supported</option>
-        </select>
-      </p>
-      <p><select name="act">
-          <option value="0" selected>No activities</option>
-          <option value="1">Involved in activities</option>
-        </select>
-      </p>
-      <p><select name="net">
-          <option value="0" selected>No net access</option>
-          <option value="1">Has internet access</option>
-        </select>
-      </p>
-      <p><select name="rel">
-          <option value="0" selected>Single</option>
-          <option value="1">In a relationship</option>
-        </select>
-      </p>
-      <p><select name="famrel">
-          <option value="1" selected>Below Average</option>
-          <option value="2">Average</option>
-          <option value="3">Good</option>
-          <option value="4">Very Good</option>
-          <option value="5">Excellent</option>
-        </select>
-      </p>
-      <p><select name="free">
-          <option value="1" selected>Too busy</option>
-          <option value="2">Busy</option>
-          <option value="3">Manageable</option>
-          <option value="4">Generally Free</option>
-          <option value="5">Free all the time</option>
-        </select>
-      </p>
-      <p><select name="goout">
-          <option value="1" selected>Very Low</option>
-          <option value="2">Low</option>
-          <option value="3">Average</option>
-          <option value="4">High</option>
-          <option value="5">Very High</option>
-        </select>
-      </p>
-      <p><select name="dalc">
-          <option value="1" selected>Very Low</option>
-          <option value="2">Low</option>
-          <option value="3">Average</option>
-          <option value="4">High</option>
-          <option value="5">Very High</option>
-        </select>
-      </p>
-      <p><select name="walc">
-          <option value="1" selected>Very Low</option>
-          <option value="2">Low</option>
-          <option value="3">Average</option>
-          <option value="4">High</option>
-          <option value="5">Very High</option>
-        </select>
-      </p>
-      <p><select name="health">
-          <option value="1" selected>Always Sick</option>
-          <option value="2">Intermittently Sick</option>
-          <option value="3">Average Health</option>
-          <option value="4">Good health</option>
-          <option value="5">Excellent helath</option>
-        </select>
-      </p>
-      <p><input type="text" name="abscences" placeholder="Text to be analyzed" /></p>
-      <p><input type="text" name="cgpa" placeholder="Text to be analyzed" /></p>
+  </section>
+  <section class="vertical-scrolling" id="special">
+    <div align="left" style="margin-left:10vw">
+    <br><br><br><br>
+      <div class="row">
+          <div class="column">
+              Gender: <select name="sex">
+                  <option value="M" selected>Male</option>
+                  <option value="F">Female</option>
+                </select>
+              
+          </div>
+          <div class="column">
+              Age: <select name="age">
+                  <option value="18" selected>18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                </select>
+              
+          </div>
+      </div>
+      <div class="row">
+          <div class="column">
+                Parents' Marital Status: <select name="p_status">
+                    <option value="T" selected>Living Together</option>
+                    <option value="A">Living Apart</option>
+                  </select>
+                 
+            </div>
+            <div class="column">
+                Mother's Job: <select name="mjob">
+                    <option value="at_home" selected>Unemployed</option>
+                    <option value="teacher">Teaching</option>
+                    <option value="health">Health Industry</option>
+                    <option value="services">Services</option>
+                    <option value="other">Others</option>
+                  </select>
+                 
+            </div>
+      </div>
+      <div class="row">
+              <div class="column">
+                  Father's Job: <select name="fjob">
+                      <option value="at_home" selected>Unemployed</option>
+                      <option value="teacher">Teaching</option>
+                      <option value="health">Health Industry</option>
+                      <option value="services">Services</option>
+                      <option value="other">Others</option>
+                    </select>
+                  
+              </div>
+              <div class="column">
+                  Reason for joining institute: <select name="reason">
+                      <option value="reputation" selected>Reputation</option>
+                      <option value="course">Course</option>
+                      <option value="home">Home</option>
+                      <option value="other">Others</option>
+                    </select>
+                  
+              </div>
+        </div>
+        <div class="row">
+                <div class="column">
+                    Studying Time:  <select name="stime">
+                        <option value="1" selected>1 hour</option>
+                        <option value="2">2 hours</option>
+                        <option value="3">3 hours</option>
+                        <option value="4">4 hours</option>
+                      </select>
+                     
+                </div>
+                <div class="column">
+                    Failures<select name="fail">
+                        <option value="0" selected>0 times</option>
+                        <option value="1">1 time</option>
+                        <option value="2">2 times</option>
+                        <option value="3">3 times</option>
+                      </select>
+                    
+                </div>
+        </div>
+        <div class="row">
+          <div class="column">
+              Financial Support from family: <select name="famsup">
+                  <option value="0" selected>Not supported</option>
+                  <option value="1">Supported</option>
+                </select>
+              
+          </div>
+          <div class="column">
+              Involvement in Activities: <select name="act">
+                  <option value="0" selected>No activities</option>
+                  <option value="1">Involved in activities</option>
+                </select>
+              
+          </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                Internet Access: <select name="net">
+                    <option value="0" selected>No net access</option>
+                    <option value="1">Has internet access</option>
+                  </select>
+                
+            </div>
+            <div class="column">
+                Relationship status: <select name="rel">
+                    <option value="0" selected>Single</option>
+                    <option value="1">In a relationship</option>
+                  </select>
+                
+            </div>    
+        </div>
+        <div class="row">
+            <div class="column">         
+                Relations with family: <select name="famrel">
+                    <option value="1" selected>Below Average</option>
+                    <option value="2">Average</option>
+                    <option value="3">Good</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                
+              </div>
+              <div class="column">
+                  Free Time: <select name="free">
+                    <option value="1" selected>Too busy</option>
+                    <option value="2">Busy</option>
+                    <option value="3">Manageable</option>
+                    <option value="4">Generally Free</option>
+                    <option value="5">Free all the time</option>
+                  </select>
+                
+              </div>  
+          </div>
+          <div class="row">
+              <div class="column">           
+                  Outings: <select name="goout">
+                      <option value="1" selected>Very Low</option>
+                      <option value="2">Low</option>
+                      <option value="3">Average</option>
+                      <option value="4">High</option>
+                      <option value="5">Very High</option>
+                    </select>
+                  
+                </div>
+                <div class="column">
+                    Weekday Alcohol Consumption: <select name="dalc">
+                      <option value="1" selected>Very Low</option>
+                      <option value="2">Low</option>
+                      <option value="3">Average</option>
+                      <option value="4">High</option>
+                      <option value="5">Very High</option>
+                    </select>
+                  
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    Weekend Alcohol Consumption: <select name="walc">
+                        <option value="1" selected>Very Low</option>
+                        <option value="2">Low</option>
+                        <option value="3">Average</option>
+                        <option value="4">High</option>
+                        <option value="5">Very High</option>
+                      </select>
+                    
+                </div>
+                <div class="column">    
+                    General health: <select name="health">
+                        <option value="1" selected>Always Sick</option>
+                        <option value="2">Intermittently Sick</option>
+                        <option value="3">Average Health</option>
+                        <option value="4">Good health</option>
+                        <option value="5">Excellent health</option>
+                      </select>
+                    
+                </div>    
+            </div>
+            <div class="row">
+                <div class="column">
+                    Absentism: <input type="text" name="abscences" placeholder="Text to be analyzed" />
+                </div>
+                <div class = "column">
+                    CGPA: <input type="text" name="cgpa" placeholder="Text to be analyzed" />
+                </div>
+            </div>
+    </div>
+  </section>
 
-      <p><input type="file" name="file1"/></p>
-      <p><input type="file" name="file2"/></p>
-      <p><input type="file" name="file3"/></p>
-      <p><input type="file" name="file4"/></p>
-      <p><input type="file" name="file5"/></p>
 
-      <p><input type="submit" /></input></p>
-    </form>
+  <section class="vertical-scrolling" id="special">
+      Upload 1st file: <input type="file" name="file1" style="height:3vw;width:20vw" />
+      <br><br>
+      Upload 2nd file: <input type="file" name="file2" style="height:3vw;width:20vw" />
+      <br><br>
+      Upload 3rd file: <input type="file" name="file3" style="height:3vw;width:20vw" />
+      <br><br>
+      Upload 4th file: <input type="file" name="file4" style="height:3vw;width:20vw" />
+      <br><br>
+      Upload 5th file: <input type="file" name="file5" style="height:3vw;width:20vw" />
+      <br><br>
+      <p><input type="submit"  style="height:3vw;width:20vw"/></input></p>
+  </section>
+</div>
+</form>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.min.js'></script>
+
+  
+
+    <script  src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+
+
+
 </body>
-
-
-
 
 </html>
