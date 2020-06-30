@@ -1,14 +1,14 @@
-THIS WAS THE TERM PROJECT FOR THE COURSE SOFT COMPUTING TOOLS IN ENGINEERING at IIT Kharagpur
+# KHOJ - Student Mental Health Quotient Tracker
 
-A WEB Interface for an overall analysis of the Mental Health of a student visiting the Counselling Center with the help of three things:
-1. HANDWRITING ANALYSIS
-2. ACADEMIC, EXTRA-CURRICULAR and Personal details
-3. Analysis of POSTS, COMMENTS on Social Media
+A web interface for an overall analysis of the Mental Health of a student visiting the Counselling Center with the help of three things:
++ Handwriting Analysis
++ Academmic, Extra-curricular and Personal details
++ Analysis of Postsand Comments on Social Media
 
 
 A final fuzzy judgement on the risk of a depressed student going for an extreme step and his vulnerable personality traits that need to be looked after is displayed on the screen.
 
-(I) HANDWRITING ANALYSIS by GRAPHOLOGY:  
+## 1. Handwriting Analysis by GRAPHOLOGY:  
 
 	Graphology is defined as the analysis of the physical characteristics and patterns of the handwriting of an individual to understand his or her psychological state at the time of writing.
 
@@ -41,13 +41,11 @@ A final fuzzy judgement on the risk of a depressed student going for an extreme 
 
 	The test image is passed as input to the trained model via `train_predict.py` which trains eight SVM classifiers, extracts the features of the image via `extract.py` and then classifies it for every personality trait.
 
-(II) ANALYSIS of ACADEMIC and Other details:
+## 2. Academic Ananlysis:
 
 	Detailed description  about this is given in the README.md file in academic directory
 
-(III) Sentiment Anaysis of Social Media tweets, posts, comments:
-
-	#TO BE UPDATED as very crude method used
+## 3. Sentiment Anaysis of Social Media tweets, posts, comments:
 
 	Assessment of a particular individual's social media handle to determine mental stability
 	Pre-trained models used - 
